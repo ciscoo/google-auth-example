@@ -1,8 +1,33 @@
-const jwt = require('jsonwebtoken');
-const { jwtConfig } = require('../config');
+const oauth2Client = require('../google-oauth2-client');
 
-exports.authSuccess = async (req, res) => {
-  const { user } = req;
-  const token = jwt.sign(user, jwtConfig.secret, jwtConfig.options);
-  res.json({ token });
+const { googleAuthUrlOpts } = require('../config')
+
+exports.authenticate = (req, res) => {
+  const authUrl = oauth2Client.generateAuthUrl(googleAuthUrlOpts);
+  res.redirect(authUrl);
+};
+
+exports.successOrFail = async (req, res) => {
+  const { code, error } = req.query;
+
+  if (error) {
+    res.status(401).json({
+      status: 401,
+      error: {
+        message: error,
+      },
+    });
+  }
+
+  const tokens = await new Promise((resolve, reject) => {
+    oauth2Client.getToken(code, (err, tokenz) => {
+      if (err) {
+        reject(err);
+        return;
+      }
+      resolve(tokenz);
+    });
+  });
+
+  res.json({ ...tokens });
 };
