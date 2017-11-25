@@ -1,9 +1,7 @@
-const passportStrategies = require('./passport-strategies');
-const googleOauth2Config = require('./google-oauth2');
+const googleAuthUrlOpts = require('./google-auth-url');
 const jwtConfig = require('./jwt-config');
 
 module.exports = {
-  passportStrategies,
-  googleOauth2Config,
+  googleAuthUrlOpts,
   jwtConfig,
 };
