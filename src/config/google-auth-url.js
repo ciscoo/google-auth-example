@@ -8,7 +8,7 @@ const scope = [
 const hd = process.env.AUTHORIZED_DOMAIN;
 
 // Examine the interface for a full list of options.
-// https://github.com/google/google-auth-library-nodejs/blob/master/ts/lib/auth/oauth2client.ts#L29
+// https://github.com/google/google-auth-library-nodejs/blob/9b374457367776080d04c05b913c29ada5673ba7/src/auth/oauth2client.ts#L129
 const options = {
   scope,
   hd,
