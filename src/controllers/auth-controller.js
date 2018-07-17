@@ -1,9 +1,9 @@
-const oauth2Client = require('../google-oauth2-client');
+const oAuth2Client = require('../google-oauth2-client');
 
 const { googleAuthUrlOpts } = require('../config')
 
 exports.authenticate = (req, res) => {
-  const authUrl = oauth2Client.generateAuthUrl(googleAuthUrlOpts);
+  const authUrl = oAuth2Client.generateAuthUrl(googleAuthUrlOpts);
   res.redirect(authUrl);
 };
 
@@ -20,7 +20,7 @@ exports.successOrFail = async (req, res) => {
   }
 
   const tokens = await new Promise((resolve, reject) => {
-    oauth2Client.getToken(code, (err, tokenz) => {
+    oAuth2Client.getToken(code, (err, tokenz) => {
       if (err) {
         reject(err);
         return;
